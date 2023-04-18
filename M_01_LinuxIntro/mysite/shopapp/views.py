@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from timeit import default_timer
@@ -14,4 +15,11 @@ def shop_index(request: HttpRequest):
     }
 
     return render(request, 'shopapp/shop-index.html', context = context)
-# Create your views here.
+
+
+def groups_list(request: HttpRequest):
+    context = {
+        "groups": Group.objects.prefetch_related("permissions").all()
+
+    }
+    return render(request, "shopapp/groups_list.html", context=context)

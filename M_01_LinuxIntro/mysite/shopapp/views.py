@@ -8,10 +8,10 @@ def shop_index(request: HttpRequest):
         ('Desktop', 1999),
         ('Smartphone', 2999)
     ]
-    context ={
+    context = {
         "time_running": default_timer(),
-        "product" : products,
+        "products" : products,
     }
 
-    return render(request, 'shopapp/shop-index.html')
+    return render(request, 'shopapp/shop-index.html', context = context)
 # Create your views here.

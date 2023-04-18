@@ -8,8 +8,13 @@
 <h1>Hello Shop Index</h1>
 <div>
     <ul>
-        {% for product in products %}
-        <li>{{product}}</li>
+        {% for name, price in products %}
+        <li>{{name}} ({{name|length}}for {{price}}</li>
+        {% if name|length_is:"7"  %}
+        <span>Lucky product</span>
+        {% endif %}
+        {% empty %}
+        No products her
         {% endfor %}
     </ul>
 </div>

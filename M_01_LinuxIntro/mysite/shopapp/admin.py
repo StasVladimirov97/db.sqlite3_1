@@ -1,14 +1,46 @@
 from django.contrib import admin
+from django.db.models import QuerySet
+from django.http import HttpRequest
 
 from .models import Product, Order
 
+class OrderInline(admin.TabularInline):
+    model = Product.orders.through
+
+@admin.action(description="Archived products")
+def mark_archived(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
+    queryset.update(archived=True)
+
+@admin.action(description="Unarchived products")
+def mark_archived_false(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
+    queryset.update(archived=False)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = "pk", "name", "description_short", "price", "discount"
+    actions = [
+        mark_archived, mark_archived_false, 
+    ]
+    inlines = [
+        OrderInline,
+    ]
+    list_display = "pk", "name", "description_short", "price", "discount", "archived"
     list_display_links = "pk", "name"
     ordering = "-name", "pk"
     search_fields = "name", "description"
+    fieldsets = [
+        (None, {
+            "fields" : ("name", "description"),
+        }),
+        ("Price options", {
+            "fields" : ("price", "discount"),
+            "classes": ("wide", "collapse"),
+        }),
+        ("Extra options",{
+            "fields" : ("archived",),
+            "classes" : ("collapse",),
+            "description" : ("Extra options. Field 'archived' is for soft delete",),
+        })
+    ]
 
     def description_short(self, obj: Product) -> str:
         if len(obj.description) < 48:
@@ -18,6 +50,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ProductInline(admin.StackedInline):
     model = Order.products.through
+
 
 
 @admin.register(Order)

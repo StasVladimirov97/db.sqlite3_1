@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest
+from .admin_mixins import ExportAsCSVMixin
 
 from .models import Product, Order
 
@@ -16,9 +17,10 @@ def mark_archived_false(modeladmin: admin.ModelAdmin, request: HttpRequest, quer
     queryset.update(archived=False)
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     actions = [
-        mark_archived, mark_archived_false, 
+        mark_archived, mark_archived_false,
+        "export_csv",
     ]
     inlines = [
         OrderInline,

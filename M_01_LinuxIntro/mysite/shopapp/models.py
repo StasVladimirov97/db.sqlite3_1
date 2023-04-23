@@ -5,8 +5,8 @@ from django.db import models
 class Product(models.Model):
     class Meta:
         ordering = ["name", "price"]
-        #db_table = "tech_products"
-        #verbose_name_plural = "products"
+        # db_table = "tech_products"
+        # verbose_name_plural = "products"
 
     objects = None
     name = models.CharField(max_length=100)
@@ -16,7 +16,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     archived = models.BooleanField(default=False)
 
-    @property
+    #@property
     # def description_short(self) -> str:
     #     if len(self.description) < 48:
     #         return self.description
@@ -32,4 +32,5 @@ class Order(models.Model):
     promocode = models.CharField(max_length=20, null=False, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    products = models.ManyToManyField(Product, related_name = "order")
+    products = models.ManyToManyField(Product, related_name="orders")
+

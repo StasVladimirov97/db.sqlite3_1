@@ -21,6 +21,11 @@ def handle_file_upload(request: HttpRequest) -> HttpResponse:
         myfile = request.FILES("myfile")
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        print('Save file', filename)
+        filesize = fs.size(filename)
+        if filesize > 1000000:
+            fs.delete(filename)
+            print('File delete', filename)
+        else:
+            print('Save file', filename)
 
     return render(request, "requestdataapp/file-upload.html")

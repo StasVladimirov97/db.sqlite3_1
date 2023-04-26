@@ -1,4 +1,4 @@
-from datetime import time
+import time
 
 from django.http import HttpRequest
 from django.shortcuts import render
@@ -19,7 +19,7 @@ def set_useragent_on_request_middleware(get_response):
 
 
 class CountRequestsMiddleware:
-    def __int__(self, get_response):
+    def __init__(self, get_response):
         self.get_response = get_response
         self.requests_count = 0
         self.request_time = {}
@@ -41,7 +41,7 @@ class CountRequestsMiddleware:
         print("requests count ", self.requests_count)
         response = self.get_response(request)
         print("responses count ", self.responses_count)
-        self.get_response += 1
+        self.responses_count += 1
         return response
 
     def process_exception(self, request: HttpRequest, exception: Exception):

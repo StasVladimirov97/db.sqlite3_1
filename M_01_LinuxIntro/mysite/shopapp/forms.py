@@ -1,6 +1,10 @@
 from django import forms
+from .models import Product
+class ProductsForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = "name", "price", "description", "discount"
 
-class ProductsForm(forms.Form):
-    name = forms.CharField()
-    price = forms.DecimalField(min_value=1, max_value=10000000)
-    description = forms.CharField(label='Product description', widget= forms.Textarea)
+
+
+

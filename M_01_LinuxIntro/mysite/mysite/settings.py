@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'shopapp.apps.ShopappConfig',
+    'myauth.apps.MyauthConfig',
     'requestdataapp.apps.RequestdataappConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/admin/'
+

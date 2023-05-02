@@ -75,7 +75,7 @@ class ProductDeleteView(DeleteView):
     def form_valid(self, form):
         success_url = self.get_success_url()
         self.object.archived = True
-        self.object.save()
+        self.object.save(update_fields=['archived'])
         return HttpResponseRedirect(success_url)
 
 

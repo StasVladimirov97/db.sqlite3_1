@@ -3,7 +3,7 @@ from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .models import Product, Order
 
 
@@ -63,7 +63,8 @@ class OrdersListView(LoginRequiredMixin, ListView):
     )
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "view_order"
     queryset = (
         Order.objects
         .select_related("user")

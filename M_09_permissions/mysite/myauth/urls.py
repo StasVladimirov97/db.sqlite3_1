@@ -11,6 +11,7 @@ from .views import (
     set_session_view,
     get_session_view,
     MyLogoutView,
+    FooBarView,
 
 )
 
@@ -28,4 +29,6 @@ urlpatterns = [
 
     path("session/set/", set_session_view, name="session-set"),
     path("session/get/", get_session_view, name="session-get"),
+
+    path("foo-bar/", FooBarView.as_view(), name="foo-bar"),
 ]

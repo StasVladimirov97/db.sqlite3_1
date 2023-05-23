@@ -88,7 +88,7 @@ class ProductExportViewTestCase(TestCase):
 
     def test_get_products_view(self):
         response = self.client.get(
-            reverse("shopapp:product-export"),
+            reverse("shopapp:products-export"),
         )
         self.assertEqual(response.status_code, 200)
         products = Product.objects.order_by("pk").all()

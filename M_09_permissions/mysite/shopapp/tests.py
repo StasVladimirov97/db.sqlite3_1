@@ -8,12 +8,12 @@ from shopapp.models import Product
 from random import choices
 from django.conf import settings
 class ProductCreateViewTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.user = User.objects.create_user(username="bob", password="qwert")
+
 
     def setUp(self) -> None:
-        self.user = User.objects.create_user(
-            username="bob",
-            password="qwerty",
-        )
         self.client.force_login(self.user)
         self.product_name = "".join(choices(ascii_letters, k=10))
         Product.objects.filter(name=self.product_name).delete()

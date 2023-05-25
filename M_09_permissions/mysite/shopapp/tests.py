@@ -10,7 +10,7 @@ from django.conf import settings
 class ProductCreateViewTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.user = User.objects.create_user(username="bob", password="qwert")
+        cls.user = User.objects.create_superuser(username="bob", password="qwert")
 
 
     def setUp(self) -> None:

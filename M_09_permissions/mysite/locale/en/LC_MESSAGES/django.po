@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-13 18:09+0300\n"
+"POT-Creation-Date: 2023-06-13 22:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,4 +35,56 @@ msgstr ""
 
 #: .\mysite\settings.py:130
 msgid "Russian"
+msgstr ""
+
+#: .\shopapp\templates\shopapp\products-list.html:6
+msgid "Products list"
+msgstr "Products list"
+
+#: .\shopapp\templates\shopapp\products-list.html:10
+msgid "Products"
+msgstr "Products"
+
+#: .\shopapp\templates\shopapp\products-list.html:13
+#, python-format
+msgid ""
+"\n"
+"    There is only one product.\n"
+"    "
+msgid_plural ""
+"\n"
+"    There are %(products_count)s products\n"
+"  "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\shopapp\templates\shopapp\products-list.html:24
+msgctxt "product name"
+msgid "Name"
+msgstr "Name"
+
+#: .\shopapp\templates\shopapp\products-list.html:25
+msgid "Price"
+msgstr "Price"
+
+#: .\shopapp\templates\shopapp\products-list.html:26
+msgid "no discount"
+msgstr "no discount"
+
+#: .\shopapp\templates\shopapp\products-list.html:27
+msgid "Discount"
+msgstr "Discount"
+
+#: .\shopapp\templates\shopapp\products-list.html:34
+msgid "Create a new product"
+msgstr "Create a new product"
+
+#: .\shopapp\templates\shopapp\products-list.html:39
+#, python-format
+msgid ""
+"\n"
+"    <h3>No products yet</h3>\n"
+"    <a href=\"%(create_product_url)s\"\n"
+"    >Create a new one</a>\n"
+"    "
 msgstr ""

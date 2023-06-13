@@ -8,6 +8,12 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, CreateView
 from django.views import View
 from .models import Profile
+from django.utils.translation import gettext as _
+class HelloView(View):
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        welcome_message = _("Hello world!")
+        return HttpResponse(f'<h1>{welcome_message}</h1>')
 class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
 

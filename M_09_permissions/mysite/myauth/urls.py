@@ -12,6 +12,7 @@ from .views import (
     get_session_view,
     MyLogoutView,
     FooBarView,
+    HelloView,
 
 )
 
@@ -21,6 +22,7 @@ urlpatterns = [
     path("login/", LoginView.as_view(template_name="myauth/login.html",
                                      redirect_authenticated_user=True,
                                      ), name="login"),
+    path("hello/", HelloView.as_view(), name="hello"),
     path("logout/", MyLogoutView.as_view(), name="logout"),
     path("about-me/", AboutMeView.as_view(), name="about-me"),
     path("register/", RegisterView.as_view(), name="register"),

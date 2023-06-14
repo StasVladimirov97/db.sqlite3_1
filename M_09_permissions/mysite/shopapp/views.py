@@ -10,6 +10,7 @@ from .models import Product, Order
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         context = {
+            "items": 5
         }
         return render(request, 'shopapp/shop-index.html', context=context)
 

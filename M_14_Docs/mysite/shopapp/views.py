@@ -1,3 +1,9 @@
+"""
+В этом модуле лежат различные набоы представлений.
+
+Разные view интернет-магазина: по товарам, заказам и т.д.
+"""
+
 from timeit import default_timer
 
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
@@ -13,9 +19,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .forms import ProductForm
 from .models import Product, Order, ProductImage
 from .serializers import ProductSerializer
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 
-
+@extend_schema(description="Product views CRUD")
 class ProductViewSet(ModelViewSet):
+    """
+    Набор предстовлений для действий над PRoduct.
+    Сдесь полный CRUD для сущностей товара.
+    """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [
@@ -36,7 +47,16 @@ class ProductViewSet(ModelViewSet):
         "price",
         "discount",
     ]
-
+    @extend_schema(
+        summary="Get one product by ID",
+        description="Retrives **product**, returns 404 if not found",
+        responses={
+            200: ProductSerializer,
+            404: OpenApiResponse(description="Empty response, product by id not found"),
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(*args, **kwargs)
 
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:

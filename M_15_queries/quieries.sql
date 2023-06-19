@@ -18,3 +18,10 @@ select "shopapp_order"."id", "shopapp_order"."delivery_address", "shopapp_order"
 papp_order"."receipt", "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_n
 ame", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" from "shopapp_order" inner join "aut
 h_user" on ("shopapp_order"."user_id" = "auth_user"."id"); args=(); alias=default
+
+select "shopapp_order"."id", "shopapp_order"."delivery_address", "shopapp_order"."promocode", "shopapp_order"."created_at", "shopapp_order"."user_id", "sho
+papp_order"."receipt", cast(sum("shopapp_product"."price") as numeric) as "total", count("shopapp_order_products"."product_id") as "products_count" from "shopapp_o
+rder" left outer join "shopapp_order_products" on ("shopapp_order"."id" = "shopapp_order_products"."order_id") left outer join "shopapp_product" on ("shopapp_order
+_products"."product_id" = "shopapp_product"."id") group by "shopapp_order"."id", "shopapp_order"."delivery_address", "shopapp_order"."promocode", "shopapp_order"."
+created_at", "shopapp_order"."user_id", "shopapp_order"."receipt"; args=(); alias=default
+

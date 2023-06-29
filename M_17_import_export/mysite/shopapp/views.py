@@ -1,5 +1,3 @@
-import logging
-
 from timeit import default_timer
 
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
@@ -16,7 +14,6 @@ from .forms import ProductForm
 from .models import Product, Order, ProductImage
 from .serializers import ProductSerializer
 
-log = logging.getLogger(__name__)
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
@@ -52,8 +49,6 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
-        log.debug("Products for shop index: %s", products)
-        log.info("Rendering shop index")
         return render(request, 'shopapp/shop-index.html', context=context)
 
 

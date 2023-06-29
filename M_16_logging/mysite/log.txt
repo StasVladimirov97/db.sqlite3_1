@@ -1,0 +1,5 @@
+2023-06-26 16:45:38,207 [INFO]  django.utils.autoreload: Watching for file changes with StatReloader
+2023-06-26 16:45:42,908 [WARNING]  django.request: Not Found: /
+2023-06-26 16:45:48,155 [INFO]  shopapp.views: Rendering shop index
+2023-06-26 16:46:31,922 [INFO]  shopapp.views: Rendering shop index
+2023-06-26 16:46:32,888 [INFO]  shopapp.views: Rendering shop index

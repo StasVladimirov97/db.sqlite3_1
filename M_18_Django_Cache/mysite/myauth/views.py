@@ -68,3 +68,5 @@ def get_session_view(request: HttpRequest) -> HttpResponse:
 class FooBarView(View):
     def get(self, request: HttpRequest) -> JsonResponse:
         return JsonResponse({"foo": "bar", "spam": "eggs"})
+
+

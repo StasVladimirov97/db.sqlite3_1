@@ -191,3 +191,11 @@ class ProductsDataExportView(View):
             ]
             cache.set(cache_key, products_data, 300)
         return JsonResponse({"products": products_data})
+
+class UserOrdersListView(ListView):
+    model = Order
+    template_name = 'shopapp/order_list.html'
+
+    def get_queryset(self):
+        id_url = self.kwargs['user_id']
+        return Order.objects.filter(category = id_url)

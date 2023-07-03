@@ -1,5 +1,5 @@
+from csv import DictWriter
 from timeit import default_timer
-from csv import DictReader, DictWriter
 
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse
@@ -7,15 +7,15 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.parsers import MultiPartParser
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
-from .common import save_csv_products
 
+from .common import save_csv_products
 from .forms import ProductForm
 from .models import Product, Order, ProductImage
 from .serializers import ProductSerializer
@@ -44,7 +44,7 @@ class ProductViewSet(ModelViewSet):
     ]
 
     @action(methods=["get"], detail=False)
-    def download_csv(self,request:Request):
+    def download_csv(self, request: Request):
         response = HttpResponse(content_type="text/csv")
         filename = "products-export.csv"
         response["Content-Disposition"] = f"attachment; filename={filename}"
@@ -71,7 +71,6 @@ class ProductViewSet(ModelViewSet):
         detail=False,
         methods=["post"],
         parser_classes=[MultiPartParser],
-
     )
     def upload_csv(self, request: Request):
         products = save_csv_products(

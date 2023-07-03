@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
+
 from .sitemaps import sitemaps
 
 urlpatterns = [
@@ -30,7 +31,7 @@ urlpatterns = [
         "sitemap.xml",
         sitemap,
         {"sitemaps": sitemaps},
-        name="django.contrib.sitemaps.views.sitemap"
+        name="django.contrib.sitemaps.views.sitemap",
     )
 ]
 
@@ -41,4 +42,8 @@ if settings.DEBUG:
 
     urlpatterns.extend(
         static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    )
+
+    urlpatterns.append(
+        path('__debug__/', include('debug_toolbar.urls')),
     )

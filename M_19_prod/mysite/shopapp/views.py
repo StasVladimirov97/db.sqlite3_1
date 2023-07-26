@@ -1,15 +1,16 @@
 from csv import DictWriter
 from timeit import default_timer
-from django.utils.decorators import method_decorator
 
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse
-from django.core.cache import cache
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+
 from rest_framework.parsers import MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -45,9 +46,10 @@ class ProductViewSet(ModelViewSet):
         "price",
         "discount",
     ]
+
     @method_decorator(cache_page(60 * 2))
     def list(self, *args, **kwargs):
-        #print("hello products list")
+        print("list")
         return super().list(*args, **kwargs)
 
     @action(methods=["get"], detail=False)
@@ -89,7 +91,8 @@ class ProductViewSet(ModelViewSet):
 
 
 class ShopIndexView(View):
-    #@method_decorator(cache_page(60 * 2))
+
+    @method_decorator(cache_page(60 * 2, key_prefix="shop-index-key-prefix"))
     def get(self, request: HttpRequest) -> HttpResponse:
         products = [
             ('Laptop', 1999),
@@ -100,7 +103,7 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
-        print("shop index context", context)
+        # print("shop index context", context)
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
@@ -177,7 +180,10 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
 class ProductsDataExportView(View):
     def get(self, request: HttpRequest) -> JsonResponse:
         cache_key = "products_data_export"
+        # Check if the data already exists in the cache
         products_data = cache.get(cache_key)
+
+        # If the data is not already cached, generate it and cache it
         if products_data is None:
             products = Product.objects.order_by('pk').all()
             products_data = [
@@ -190,12 +196,5 @@ class ProductsDataExportView(View):
                 for product in products
             ]
             cache.set(cache_key, products_data, 300)
+
         return JsonResponse({"products": products_data})
-
-class UserOrdersListView(ListView):
-    model = Order
-    template_name = 'shopapp/order_list.html'
-
-    def get_queryset(self):
-        id_url = self.kwargs['user_id']
-        return Order.objects.filter(category = id_url)
